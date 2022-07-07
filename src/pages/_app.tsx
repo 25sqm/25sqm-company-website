@@ -4,6 +4,7 @@ import { MantineProvider } from "@mantine/core";
 import { BrandTheme } from "../styles/MantineStyles";
 import { Navbar } from "../components/Navbar";
 import { FooterSimple } from "../components/Footer";
+import ScrollObserver from "../utils/ScrollObserver";
 
 const links = {
   links: [
@@ -45,9 +46,11 @@ export default function App(props: AppProps) {
         />
       </Head>
       <MantineProvider withGlobalStyles withNormalizeCSS theme={BrandTheme}>
-        <Navbar links={links.links} />
-        <Component {...pageProps} />
-        <FooterSimple links={links.links} />
+        <ScrollObserver>
+          <Navbar links={links.links} />
+          <Component {...pageProps} />
+          <FooterSimple links={links.links} />
+        </ScrollObserver>
       </MantineProvider>
     </>
   );

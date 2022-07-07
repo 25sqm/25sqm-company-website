@@ -15,8 +15,9 @@ const HEADER_HEIGHT = 60;
 
 const useStyles = createStyles((theme) => ({
   root: {
-    position: "relative",
-    zIndex: 1,
+    position: "sticky",
+    top: 0,
+    zIndex: 9,
   },
 
   dropdown: {
@@ -38,6 +39,7 @@ const useStyles = createStyles((theme) => ({
   header: {
     display: "flex",
     justifyContent: "space-between",
+    backgroundColor: theme.white,
     alignItems: "center",
     height: "100%",
   },
@@ -119,14 +121,7 @@ export function Navbar({ links }: HeaderResponsiveProps) {
   ));
 
   return (
-    <Header
-      sx={(theme) => ({
-        backgroundColor: theme.fn.rgba(theme.colors.brand[0], 0),
-        border: "none",
-      })}
-      height={HEADER_HEIGHT}
-      className={classes.root}
-    >
+    <Header height={HEADER_HEIGHT} className={classes.root}>
       <Container size="md" className={classes.header}>
         <TwentyFiveLogo />
         <Group spacing={5} className={classes.links}>

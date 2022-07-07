@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useContext } from "react";
 import {
   createStyles,
   Container,
@@ -7,15 +7,17 @@ import {
   Button,
   useMantineTheme,
 } from "@mantine/core";
+import { ScrollContext } from "../../utils/ScrollObserver";
 
 const useStyles = createStyles((theme) => ({
   root: {
     // backgroundColor: theme.colors.brand[8],
     backgroundSize: "cover",
     backgroundPosition: "center",
+    height: "100vh",
     backgroundImage: `linear-gradient(250deg, rgba(130, 201, 30, 0) 0%, ${theme.colors.brand[7]} 90%), url(https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80)`,
-    paddingTop: theme.spacing.xl * 3,
-    paddingBottom: theme.spacing.xl * 3,
+    paddingTop: theme.spacing.xl * 10,
+    paddingBottom: theme.spacing.md,
   },
 
   inner: {
@@ -66,8 +68,6 @@ const useStyles = createStyles((theme) => ({
   },
 
   control: {
-    // paddingLeft: 50,
-    // paddingRight: 50,
     fontSize: 18,
 
     [theme.fn.smallerThan("md")]: {
@@ -77,10 +77,25 @@ const useStyles = createStyles((theme) => ({
 }));
 
 export function HomeHero() {
+  const refContainer = useRef<HTMLDivElement>(null);
+  const { scrollY } = useContext(ScrollContext);
+  let progress = 0;
+  const { current: elContainer } = refContainer;
+  if (elContainer) {
+    progress = Math.min(1, scrollY / elContainer.clientHeight);
+  }
+
   const { classes } = useStyles();
   const theme = useMantineTheme();
   return (
-    <div className={classes.root}>
+    <div
+      ref={refContainer}
+      style={{
+        backgroundPositionY: `${progress * 80}vh`,
+        backgroundRepeat: "no-repeat",
+      }}
+      className={classes.root}
+    >
       <Container size="md">
         <div className={classes.inner}>
           <div className={classes.content}>
