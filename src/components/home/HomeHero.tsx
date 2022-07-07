@@ -21,7 +21,6 @@ const useStyles = createStyles((theme) => ({
   inner: {
     display: "flex",
     justifyContent: "space-between",
-
     [theme.fn.smallerThan("md")]: {
       flexDirection: "column",
     },
@@ -37,7 +36,6 @@ const useStyles = createStyles((theme) => ({
     paddingTop: theme.spacing.xl * 2,
     paddingBottom: theme.spacing.xl * 2,
     marginRight: theme.spacing.xl * 3,
-
     [theme.fn.smallerThan("md")]: {
       marginRight: 0,
     },
@@ -68,9 +66,9 @@ const useStyles = createStyles((theme) => ({
   },
 
   control: {
-    paddingLeft: 50,
-    paddingRight: 50,
-    fontSize: 22,
+    // paddingLeft: 50,
+    // paddingRight: 50,
+    fontSize: 18,
 
     [theme.fn.smallerThan("md")]: {
       width: "100%",
@@ -83,7 +81,7 @@ export function HomeHero() {
   const theme = useMantineTheme();
   return (
     <div className={classes.root}>
-      <Container size="lg">
+      <Container size="md">
         <div className={classes.inner}>
           <div className={classes.content}>
             <Title className={classes.title}>
@@ -115,7 +113,7 @@ export function HomeHero() {
                 from: theme.colors.brand[4],
                 to: theme.colors.brand[6],
               }}
-              size="xl"
+              size="lg"
               className={classes.control}
               mt={40}
             >

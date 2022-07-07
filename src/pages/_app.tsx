@@ -2,6 +2,30 @@ import { AppProps } from "next/app";
 import Head from "next/head";
 import { MantineProvider } from "@mantine/core";
 import { BrandTheme } from "../styles/MantineStyles";
+import { Navbar } from "../components/Navbar";
+import { FooterSimple } from "../components/Footer";
+
+const links = {
+  links: [
+    { link: "/", label: "Home" },
+    {
+      link: "/about",
+      label: "About Us",
+    },
+    {
+      link: "/pricing",
+      label: "Services",
+    },
+    {
+      link: "/learn",
+      label: "Products",
+    },
+    {
+      link: "/community",
+      label: "Contact Us",
+    },
+  ],
+};
 
 export default function App(props: AppProps) {
   const { Component, pageProps } = props;
@@ -16,7 +40,9 @@ export default function App(props: AppProps) {
         />
       </Head>
       <MantineProvider withGlobalStyles withNormalizeCSS theme={BrandTheme}>
+        <Navbar links={links.links} />
         <Component {...pageProps} />
+        <FooterSimple links={links.links} />
       </MantineProvider>
     </>
   );

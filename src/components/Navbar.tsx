@@ -9,7 +9,7 @@ import {
   Transition,
 } from "@mantine/core";
 import { useBooleanToggle } from "@mantine/hooks";
-import { TwentyFiveLogo } from "../25SQMLogo";
+import { TwentyFiveLogo } from "./25SQMLogo";
 
 const HEADER_HEIGHT = 60;
 
@@ -119,8 +119,15 @@ export function Navbar({ links }: HeaderResponsiveProps) {
   ));
 
   return (
-    <Header height={HEADER_HEIGHT} className={classes.root}>
-      <Container className={classes.header}>
+    <Header
+      sx={(theme) => ({
+        backgroundColor: theme.fn.rgba(theme.colors.brand[0], 0),
+        border: "none",
+      })}
+      height={HEADER_HEIGHT}
+      className={classes.root}
+    >
+      <Container size="md" className={classes.header}>
         <TwentyFiveLogo />
         <Group spacing={5} className={classes.links}>
           {items}
