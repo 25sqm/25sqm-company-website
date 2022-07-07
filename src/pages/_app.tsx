@@ -33,7 +33,12 @@ export default function App(props: AppProps) {
   return (
     <>
       <Head>
-        <title>25SQM</title>
+        <title>25SQM, Inc.</title>
+        <meta
+          name="description"
+          content="Only the best products for all. Available nationwide."
+        />
+        <meta name="author" content="25SQM" />
         <meta
           name="viewport"
           content="minimum-scale=1, initial-scale=1, width=device-width"
