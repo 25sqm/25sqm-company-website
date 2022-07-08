@@ -6,7 +6,7 @@ import { Navbar } from "../components/Navbar";
 import { FooterSimple } from "../components/Footer";
 import ScrollObserver from "../utils/ScrollObserver";
 
-const links = {
+const data = {
   links: [
     { link: "/", label: "Home" },
     {
@@ -30,6 +30,7 @@ const links = {
 
 export default function App(props: AppProps) {
   const { Component, pageProps } = props;
+  const { links } = data;
 
   return (
     <>
@@ -47,9 +48,9 @@ export default function App(props: AppProps) {
       </Head>
       <MantineProvider withGlobalStyles withNormalizeCSS theme={BrandTheme}>
         <ScrollObserver>
-          <Navbar links={links.links} />
+          <Navbar links={links} />
           <Component {...pageProps} />
-          <FooterSimple links={links.links} />
+          <FooterSimple links={links} />
         </ScrollObserver>
       </MantineProvider>
     </>
