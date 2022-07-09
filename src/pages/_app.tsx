@@ -22,7 +22,7 @@ const data = {
       label: "Products",
     },
     {
-      link: "/community",
+      link: "/contact",
       label: "Contact Us",
     },
   ],

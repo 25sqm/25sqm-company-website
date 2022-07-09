@@ -15,7 +15,7 @@ import { ReceiptOff, Flame, CircleDotted, FileCode } from "tabler-icons-react";
 
 const useStyles = createStyles((theme) => ({
   wrapper: {
-    padding: `${theme.spacing.xl * 2}px ${theme.spacing.xl}px`,
+    padding: `${theme.spacing.lg * 2}px ${theme.spacing.xl}px`,
   },
 
   title: {
@@ -23,7 +23,7 @@ const useStyles = createStyles((theme) => ({
     fontWeight: 900,
     lineHeight: 1.1,
     marginBottom: theme.spacing.md,
-    color: theme.colorScheme === "dark" ? theme.white : theme.black,
+    color: theme.colorScheme === "dark" ? theme.white : theme.colors.brand[6],
   },
 }));
 
@@ -82,7 +82,7 @@ export function FeaturesTitle() {
   ));
 
   return (
-    <Container size="md">
+    <Container className={classes.wrapper} size="md">
       <Grid gutter={80}>
         <Col span={12} md={5}>
           <Title className={classes.title} order={2}>
