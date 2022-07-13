@@ -46,6 +46,7 @@ export function FaqWithImage() {
               height={400}
               fit="contain"
               src={faq.src}
+              withPlaceholder={faq.src === "" || null || undefined}
               alt="Frequently Asked Questions"
             />
           </Col>

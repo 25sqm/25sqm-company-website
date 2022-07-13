@@ -21,9 +21,14 @@ const useStyles = createStyles((theme) => ({
     paddingTop: theme.spacing.xl * 2,
     paddingBottom: theme.spacing.xl * 2,
   },
+  image: {
+    [theme.fn.smallerThan("sm")]: {
+      width: "100%",
+    },
+  },
 
   wrapper: {
-    padding: `${theme.spacing.xs}px ${theme.spacing.xs}px`,
+    padding: `${theme.spacing.xs}px ${theme.spacing.xl}px`,
   },
   content: {
     // maxWidth: 505,
@@ -49,10 +54,12 @@ const Details = () => {
         <Grid.Col span={12} md={5}>
           <div>
             <Image
-              width={350}
-              height={350}
+              className={classes.image}
+              // width={350}
+              // height={350}
               fit="contain"
               src={image.src}
+              withPlaceholder={image.src}
               alt="Our services at 25sqm"
             />
           </div>
