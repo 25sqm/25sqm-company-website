@@ -52,7 +52,7 @@ export function FooterSimple({ links }: FooterSimpleProps) {
       <Container className={classes.inner}>
         <TwentyFiveLogo />
         <Text color="dimmed" size="xs">
-          © 2022 25SQM. All Rights Reserved.{" "}
+          © {new Date().getFullYear()} 25SQM. All Rights Reserved.{" "}
         </Text>
         <Group className={classes.links}>{items}</Group>
       </Container>
