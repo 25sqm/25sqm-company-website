@@ -12,7 +12,7 @@ import {
   List,
 } from "@mantine/core";
 import image from "./resources/about.svg";
-import { CircleCheck } from "tabler-icons-react";
+import { Check } from "tabler-icons-react";
 const useStyles = createStyles((theme) => ({
   inner: {
     display: "flex",
@@ -72,10 +72,12 @@ const Details = () => {
               sed ut dolore tempore quia error
             </Text>
             <List
-              mt={15}
+              mt={30}
+              spacing="sm"
+              size="sm"
               icon={
-                <ThemeIcon color={theme.colors.brand[7]} size={24} radius="xl">
-                  <CircleCheck />
+                <ThemeIcon color={theme.colors.brand[7]} size={20} radius="xl">
+                  <Check size={12} />
                 </ThemeIcon>
               }
             >

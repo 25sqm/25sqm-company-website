@@ -18,7 +18,7 @@ const data = {
       label: "Services",
     },
     {
-      link: "/learn",
+      link: "/products",
       label: "Products",
     },
     {
