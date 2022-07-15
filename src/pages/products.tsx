@@ -9,6 +9,7 @@ import {
   Container,
 } from "@mantine/core";
 import React from "react";
+import FloatingCart from "../components/products/FloatingCart";
 import MastHead from "../components/products/MastHead";
 import ProductsList from "../components/products/ProductsList";
 
@@ -17,6 +18,7 @@ const products = () => {
     <Container size="md">
       <MastHead />
       <ProductsList />
+      <FloatingCart />
     </Container>
   );
 };

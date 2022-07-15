@@ -6,6 +6,8 @@ import { Navbar } from "../components/Navbar";
 import { FooterSimple } from "../components/Footer";
 import ScrollObserver from "../utils/ScrollObserver";
 
+import { ModalsProvider } from "@mantine/modals";
+
 const data = {
   links: [
     { link: "/", label: "Home" },
@@ -47,11 +49,13 @@ export default function App(props: AppProps) {
         />
       </Head>
       <MantineProvider withGlobalStyles withNormalizeCSS theme={BrandTheme}>
-        <ScrollObserver>
-          <Navbar links={links} />
-          <Component {...pageProps} />
-          <FooterSimple links={links} />
-        </ScrollObserver>
+        <ModalsProvider>
+          <ScrollObserver>
+            <Navbar links={links} />
+            <Component {...pageProps} />
+            <FooterSimple links={links} />
+          </ScrollObserver>
+        </ModalsProvider>
       </MantineProvider>
     </>
   );
