@@ -6,6 +6,8 @@ import {
   Image,
   Badge,
   NumberInput,
+  useMantineTheme,
+  ThemeIcon,
 } from "@mantine/core";
 import { useModals } from "@mantine/modals";
 import { ModalsContext } from "@mantine/modals/lib/context";
@@ -20,7 +22,7 @@ export interface ProductProps {
 
 const ProductItem = ({ name, description, image, id }: ProductProps) => {
   const modals = useModals();
-
+  const theme = useMantineTheme();
   const modalContent: React.ReactNode = (
     <div>
       <Image src={image} height={160} alt="Norway" />
@@ -72,8 +74,8 @@ const ProductItem = ({ name, description, image, id }: ProductProps) => {
         </Text>
 
         <Button
-          variant="light"
-          color="blue"
+          variant="filled"
+          color={theme.colors.brand[7]}
           fullWidth
           style={{ marginTop: 14 }}
           onClick={openProductModal}

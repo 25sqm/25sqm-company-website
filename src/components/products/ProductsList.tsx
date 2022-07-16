@@ -57,7 +57,15 @@ const useStyles = createStyles((theme) => ({
 const ProductsList = () => {
   const { classes } = useStyles();
   return (
-    <SimpleGrid className={classes.wrapper} cols={3}>
+    <SimpleGrid
+      breakpoints={[
+        { maxWidth: "md", cols: 3, spacing: "md" },
+        { maxWidth: "sm", cols: 2, spacing: "sm" },
+        { maxWidth: "xs", cols: 1, spacing: "sm" },
+      ]}
+      className={classes.wrapper}
+      cols={3}
+    >
       {mockProductData.map((product) => (
         <ProductItem key={product.id} {...product} />
       ))}
