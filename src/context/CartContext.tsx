@@ -8,27 +8,12 @@ export interface CartItem {
   quantity: number;
 }
 
-const initialState: any = [
-  {
-    id: 1,
-    productName: "Product 1",
-    productDescription: "Product 1 description",
-    productImage: "https://picsum.photos/600/600",
-    quantity: 100,
-  },
-  {
-    id: 2,
-    productName: "Product 2",
-    productDescription: "Product 2 description",
-    productImage: "https://picsum.photos/600/600",
-    quantity: 100,
-  },
-];
+const initialState: any = [];
 
 const CartContext = createContext(initialState);
 
 export const CartContextProvider = ({ children }: any) => {
-  const [cartItems, setCartItems] = useState<CartItem[]>(initialState);
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
 
   const addToCart = (cartItem: CartItem) => {
     setCartItems([...cartItems, cartItem]);

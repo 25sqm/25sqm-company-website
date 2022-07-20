@@ -10,9 +10,11 @@ import {
   Button,
   Image,
   Stack,
+  Divider,
+  Drawer,
+  ScrollArea,
 } from "@mantine/core";
 import { ShoppingCart, X } from "tabler-icons-react";
-import { useModals } from "@mantine/modals";
 import CartContext, { CartItem } from "../../context/CartContext";
 
 const useStyles = createStyles((theme) => ({
@@ -37,85 +39,110 @@ const useStyles = createStyles((theme) => ({
   },
 
   submitQuotationBtn: {
-    float: "right",
+    float: "left",
   },
 }));
 
 const FloatingCart = () => {
   const { cartItems, addToCart, editQuantity, deleteCartItem } =
     useContext(CartContext);
-  const modals = useModals();
   const theme = useMantineTheme();
   const { classes } = useStyles();
+  const [drawerOpened, setDrawerOpened] = useState(false);
+
+  const handleDelete = async (itemId: number) => {
+    deleteCartItem(itemId);
+  };
 
   useEffect(() => {
-    console.log("Rerender");
-  }, [cartItems]);
-
-  const handleDelete = async (id: number) => {
-    await deleteCartItem(id);
-  };
-
-  const openCartModal = (cartItems: CartItem[]) => {
-    const id = modals.openModal({
-      title: "Shopping Cart",
-      size: "xl",
-      children: (
-        <div>
-          <Text>Your items to be added to the quotation are as follows:</Text>
-          {cartItems.map((item) => (
-            <div className={classes.cartItem} key={item.id}>
-              <Group style={{ marginBottom: 5, marginTop: 15 }}>
-                <Image
-                  className={classes.image}
-                  width={120}
-                  height={120}
-                  radius="md"
-                  fit="cover"
-                  alt="product from 25sqm"
-                  src={item.productImage}
-                />
-                <Stack className={classes.content}>
-                  <Group position="apart">
-                    <Text weight={500}>{item.productName}</Text>
-                    <Text>{item.quantity}</Text>
-                  </Group>
-                  <Group position="apart">
-                    <Text size="sm">{item.productDescription}</Text>
-                    <ActionIcon
-                      variant="filled"
-                      className={classes.float}
-                      size={24}
-                      onClick={() => handleDelete(item.id)}
-                    >
-                      <X size={16} />
-                    </ActionIcon>
-                  </Group>
-                </Stack>
-              </Group>
-            </div>
-          ))}
-          <Button className={classes.submitQuotationBtn} mt={10}>
-            Submit Quotation
-          </Button>
-        </div>
-      ),
-    });
-  };
+    console.log("Rendered");
+  }, [cartItems, deleteCartItem]);
 
   return (
-    <Affix position={{ bottom: 20, right: 20 }}>
-      <Indicator size={12} offset={3} color="red">
-        <ActionIcon
-          className={classes.float}
-          variant="filled"
-          size={50}
-          onClick={() => openCartModal(cartItems)}
-        >
-          <ShoppingCart size={25} />
-        </ActionIcon>
-      </Indicator>
-    </Affix>
+    <>
+      <Drawer
+        opened={drawerOpened}
+        position="right"
+        onClose={() => setDrawerOpened(false)}
+        title="Your Cart"
+        padding="xl"
+        size="xl"
+        overlayColor={theme.colors.gray[2]}
+        overlayOpacity={0.55}
+        overlayBlur={3}
+      >
+        {cartItems.length > 0 ? (
+          <div>
+            <Text>Your items to be added to the quotation are as follows:</Text>
+            <ScrollArea style={{ height: 650 }}>
+              {cartItems.map((item: CartItem) => (
+                <div className={classes.cartItem} key={item.id}>
+                  <Group style={{ marginBottom: 5, marginTop: 15 }}>
+                    <Image
+                      className={classes.image}
+                      width={120}
+                      height={120}
+                      radius="md"
+                      fit="cover"
+                      alt="product from 25sqm"
+                      src={item.productImage}
+                    />
+                    <Stack className={classes.content}>
+                      <Group position="apart">
+                        <Text weight={500}>{item.productName}</Text>
+                        <Text>{item.quantity}</Text>
+                      </Group>
+                      <Group position="apart">
+                        <Text color="dimmed" size="sm">
+                          {item.productDescription}
+                        </Text>
+                        {/* <ActionIcon
+                          variant="filled"
+                          className={classes.float}
+                          size={24}
+                          onClick={() => {
+                            handleDelete(item.id);
+                          }}
+                        >
+                          <X size={16} />
+                        </ActionIcon> */}
+                        <Button
+                          className={classes.float}
+                          onClick={() => handleDelete(item.id)}
+                        >
+                          Remove
+                        </Button>
+                      </Group>
+                    </Stack>
+                  </Group>
+                </div>
+              ))}
+            </ScrollArea>
+            <Button
+              onClick={() => alert("Submit Quotation Functionality Here")}
+              className={classes.submitQuotationBtn}
+              mt={10}
+            >
+              Submit Quotation
+            </Button>
+          </div>
+        ) : (
+          <Text>You have no items to be submitted for a quotation yet.</Text>
+        )}
+      </Drawer>
+      <Affix position={{ bottom: 20, right: 20 }}>
+        <Indicator size={12} offset={3} color="red">
+          <ActionIcon
+            className={classes.float}
+            variant="filled"
+            size={50}
+            onClick={() => setDrawerOpened(true)}
+          >
+            <ShoppingCart size={25} />
+          </ActionIcon>
+        </Indicator>
+      </Affix>
+    </>
   );
 };
 

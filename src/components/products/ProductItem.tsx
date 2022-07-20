@@ -10,7 +10,8 @@ import {
   ThemeIcon,
 } from "@mantine/core";
 import { useModals } from "@mantine/modals";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import CartContext, { CartItem } from "../../context/CartContext";
 
 export interface ProductProps {
   productName: string;
@@ -27,55 +28,67 @@ const ProductItem = ({
 }: ProductProps) => {
   const modals = useModals();
   const theme = useMantineTheme();
-  const modalContent: React.ReactNode = (
-    <div>
-      <Image src={productImage} height={250} alt="Norway" />
-      <Group position="apart" style={{ marginBottom: 5, marginTop: 15 }}>
-        <Text size="lg" weight={500}>
-          {productName}
-        </Text>
-        <Badge color="green" variant="light">
-          In Stock
-        </Badge>
-      </Group>
-      <Text mb={25} size="sm" style={{ lineHeight: 1.5 }}>
-        {productDescription}
-      </Text>
-      <NumberInput
-        defaultValue={1}
-        placeholder="Quantity"
-        label="Quantity"
-        required
-      />
-    </div>
-  );
+  const { cartItems, addToCart, editQuantity, deleteCartItem } =
+    useContext(CartContext);
 
-  const openProductModal = () =>
+  const openProductModal = () => {
+    let quantity = 1;
     modals.openConfirmModal({
       title: "View Product",
       size: "lg",
       centered: true,
-      children: modalContent,
+      children: (
+        <div>
+          <Image src={productImage} height={250} alt="Norway" />
+          <Group position="apart" style={{ marginBottom: 5, marginTop: 15 }}>
+            <Text size="lg" weight={500}>
+              {productName}
+            </Text>
+            <Badge color="green" variant="light">
+              In Stock
+            </Badge>
+          </Group>
+          <Text mb={25} size="sm" style={{ lineHeight: 1.5 }}>
+            {productDescription}
+          </Text>
+          <NumberInput
+            value={quantity}
+            onChange={(value: number) => (quantity = value)}
+            placeholder="Quantity"
+            label="Quantity"
+            required
+          />
+        </div>
+      ),
       labels: { confirm: "Add to Quote", cancel: "Keep Shopping" },
       onCancel: () => console.log("Cancelled"),
-      onConfirm: () => console.log("Confirmed"),
+      onConfirm: () => {
+        addToCart({
+          id,
+          productName,
+          productDescription,
+          productImage,
+          quantity,
+        });
+      },
     });
+  };
 
   return (
     <div key={id}>
       <Card shadow="sm" p="lg">
         <Card.Section>
-          <Image src={productImage} height={160} alt="Norway" />
+          <Image src={productImage} height={250} alt="Norway" />
         </Card.Section>
 
-        <Group position="apart" style={{ marginBottom: 5, marginTop: 15 }}>
-          <Text weight={500}>{productName}</Text>
+        <Group position="apart" style={{ marginBottom: 15, marginTop: 15 }}>
+          <Text weight={600}>{productName}</Text>
           <Badge color="green" variant="light">
             In Stock
           </Badge>
         </Group>
 
-        <Text size="sm" lineClamp={2} style={{ lineHeight: 1.5 }}>
+        <Text size="sm" lineClamp={4} style={{ lineHeight: 1.5 }}>
           {productDescription}
         </Text>
 
