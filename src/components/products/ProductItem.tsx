@@ -14,28 +14,33 @@ import { ModalsContext } from "@mantine/modals/lib/context";
 import React, { useState } from "react";
 
 export interface ProductProps {
-  name: string;
-  description: string;
-  image: string;
+  productName: string;
+  productDescription: string;
+  productImage: string;
   id: number;
 }
 
-const ProductItem = ({ name, description, image, id }: ProductProps) => {
+const ProductItem = ({
+  productName,
+  productDescription,
+  productImage,
+  id,
+}: ProductProps) => {
   const modals = useModals();
   const theme = useMantineTheme();
   const modalContent: React.ReactNode = (
     <div>
-      <Image src={image} height={160} alt="Norway" />
+      <Image src={productImage} height={250} alt="Norway" />
       <Group position="apart" style={{ marginBottom: 5, marginTop: 15 }}>
         <Text size="lg" weight={500}>
-          {name}
+          {productName}
         </Text>
         <Badge color="green" variant="light">
           In Stock
         </Badge>
       </Group>
       <Text mb={25} size="sm" style={{ lineHeight: 1.5 }}>
-        {description}
+        {productDescription}
       </Text>
       <NumberInput
         defaultValue={1}
@@ -49,6 +54,8 @@ const ProductItem = ({ name, description, image, id }: ProductProps) => {
   const openProductModal = () =>
     modals.openConfirmModal({
       title: "View Product",
+      size: "lg",
+      centered: true,
       children: modalContent,
       labels: { confirm: "Add to Quote", cancel: "Keep Shopping" },
       onCancel: () => console.log("Cancelled"),
@@ -59,18 +66,18 @@ const ProductItem = ({ name, description, image, id }: ProductProps) => {
     <div key={id}>
       <Card shadow="sm" p="lg">
         <Card.Section>
-          <Image src={image} height={160} alt="Norway" />
+          <Image src={productImage} height={160} alt="Norway" />
         </Card.Section>
 
         <Group position="apart" style={{ marginBottom: 5, marginTop: 15 }}>
-          <Text weight={500}>{name}</Text>
+          <Text weight={500}>{productName}</Text>
           <Badge color="green" variant="light">
             In Stock
           </Badge>
         </Group>
 
-        <Text size="sm" style={{ lineHeight: 1.5 }}>
-          {description}
+        <Text size="sm" lineClamp={2} style={{ lineHeight: 1.5 }}>
+          {productDescription}
         </Text>
 
         <Button

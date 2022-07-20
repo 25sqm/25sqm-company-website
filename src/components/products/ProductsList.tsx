@@ -1,51 +1,6 @@
 import { SimpleGrid, createStyles } from "@mantine/core";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ProductItem from "./ProductItem";
-
-const mockProductData = [
-  {
-    id: 1,
-    name: "Product 1",
-    description: "This is a product",
-    image: "https://picsum.photos/200/300",
-  },
-  {
-    id: 2,
-    name: "Product 2",
-    description: "This is a product",
-    image: "https://picsum.photos/200/300",
-  },
-  {
-    id: 3,
-    name: "Product 3",
-    description: "This is a product",
-    image: "https://picsum.photos/200/300",
-  },
-  {
-    id: 4,
-    name: "Product 3",
-    description: "This is a product",
-    image: "https://picsum.photos/200/300",
-  },
-  {
-    id: 5,
-    name: "Product 3",
-    description: "This is a product",
-    image: "https://picsum.photos/200/300",
-  },
-  {
-    id: 6,
-    name: "Product 3",
-    description: "This is a product",
-    image: "https://picsum.photos/200/300",
-  },
-  {
-    id: 7,
-    name: "Product 3",
-    description: "This is a product",
-    image: "https://picsum.photos/200/300",
-  },
-];
 
 const useStyles = createStyles((theme) => ({
   wrapper: {
@@ -56,6 +11,19 @@ const useStyles = createStyles((theme) => ({
 
 const ProductsList = () => {
   const { classes } = useStyles();
+  const [products, setProducts] = useState([]);
+
+  async function getProducts() {
+    const response = await fetch("/api/product");
+    const data = await response.json();
+    console.log(data);
+    setProducts(data);
+  }
+
+  useEffect(() => {
+    getProducts();
+  }, []);
+
   return (
     <SimpleGrid
       breakpoints={[
@@ -66,7 +34,7 @@ const ProductsList = () => {
       className={classes.wrapper}
       cols={3}
     >
-      {mockProductData.map((product) => (
+      {products.map((product: any) => (
         <ProductItem key={product.id} {...product} />
       ))}
     </SimpleGrid>
