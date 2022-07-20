@@ -5,6 +5,7 @@ import { BrandTheme } from "../styles/MantineStyles";
 import { Navbar } from "../components/Navbar";
 import { FooterSimple } from "../components/Footer";
 import ScrollObserver from "../utils/ScrollObserver";
+import { CartContextProvider } from "../context/CartContext";
 
 import { ModalsProvider } from "@mantine/modals";
 
@@ -50,11 +51,13 @@ export default function App(props: AppProps) {
       </Head>
       <MantineProvider withGlobalStyles withNormalizeCSS theme={BrandTheme}>
         <ModalsProvider>
-          <ScrollObserver>
-            <Navbar links={links} />
-            <Component {...pageProps} />
-            <FooterSimple links={links} />
-          </ScrollObserver>
+          <CartContextProvider>
+            <ScrollObserver>
+              <Navbar links={links} />
+              <Component {...pageProps} />
+              <FooterSimple links={links} />
+            </ScrollObserver>
+          </CartContextProvider>
         </ModalsProvider>
       </MantineProvider>
     </>
