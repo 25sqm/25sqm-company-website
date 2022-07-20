@@ -10,7 +10,6 @@ import {
   ThemeIcon,
 } from "@mantine/core";
 import { useModals } from "@mantine/modals";
-import { ModalsContext } from "@mantine/modals/lib/context";
 import React, { useState } from "react";
 
 export interface ProductProps {
