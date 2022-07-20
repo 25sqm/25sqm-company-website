@@ -13,6 +13,7 @@ import {
   Divider,
   Drawer,
   ScrollArea,
+  Notification,
 } from "@mantine/core";
 import { ShoppingCart, X } from "tabler-icons-react";
 import CartContext, { CartItem } from "../../context/CartContext";
@@ -131,7 +132,18 @@ const FloatingCart = () => {
         )}
       </Drawer>
       <Affix position={{ bottom: 20, right: 20 }}>
-        <Indicator size={12} offset={3} color="red">
+        {cartItems.length > 0 ? (
+          <Indicator size={12} offset={3} color="red">
+            <ActionIcon
+              className={classes.float}
+              variant="filled"
+              size={50}
+              onClick={() => setDrawerOpened(true)}
+            >
+              <ShoppingCart size={25} />
+            </ActionIcon>
+          </Indicator>
+        ) : (
           <ActionIcon
             className={classes.float}
             variant="filled"
@@ -140,7 +152,7 @@ const FloatingCart = () => {
           >
             <ShoppingCart size={25} />
           </ActionIcon>
-        </Indicator>
+        )}
       </Affix>
     </>
   );

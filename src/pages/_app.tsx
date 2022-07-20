@@ -17,9 +17,13 @@ const data = {
       label: "About Us",
     },
     {
-      link: "/pricing",
-      label: "Services",
+      link: "/trainings",
+      label: "Trainings",
     },
+    // {
+    //   link: "/research-development",
+    //   label: "Research & Development",
+    // },
     {
       link: "/products",
       label: "Products",

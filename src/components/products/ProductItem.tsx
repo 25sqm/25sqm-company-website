@@ -31,6 +31,18 @@ const ProductItem = ({
   const { cartItems, addToCart, editQuantity, deleteCartItem } =
     useContext(CartContext);
 
+  const handleAdd = async (item: CartItem) => {
+    // first check if the item is already in the cart
+    const itemInCart = cartItems.find(
+      (itemInCart: any) => itemInCart.id === item.id
+    );
+    if (itemInCart) {
+      editQuantity(item.id, itemInCart.quantity + item.quantity);
+    } else {
+      addToCart(item);
+    }
+  };
+
   const openProductModal = () => {
     let quantity = 1;
     modals.openConfirmModal({
@@ -63,7 +75,7 @@ const ProductItem = ({
       labels: { confirm: "Add to Quote", cancel: "Keep Shopping" },
       onCancel: () => console.log("Cancelled"),
       onConfirm: () => {
-        addToCart({
+        handleAdd({
           id,
           productName,
           productDescription,
@@ -93,7 +105,7 @@ const ProductItem = ({
         </Text>
 
         <Button
-          variant="filled"
+          variant="subtle"
           color={theme.colors.brand[7]}
           fullWidth
           style={{ marginTop: 14 }}
